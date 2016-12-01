@@ -51,6 +51,7 @@ public class TaskCreatePanel extends JPanel {
 		colorList = new JComboBox<>(COLORS);
 		descriptionLabel = new JLabel("Description:");
 		descriptionArea = new JTextArea(3,20);
+		descriptionArea.setBorder(titleField.getBorder());
 		setComponents();
 	}
 	
