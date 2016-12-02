@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -10,9 +11,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
 
 import model.Day;
 import viewListeners.TaskCreateListener;
@@ -22,6 +25,7 @@ public class TaskCreatePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private final Color[] COLORS = {Color.RED, Color.BLUE, Color.BLACK, Color.YELLOW, Color.GREEN};
+	private final String[] COLORS_NAMES = {"RED", "BLUE", "BLACK", "YELLOW", "GREEN"};
 	
 	private JButton addTaskButton;
 	private JComboBox<Day> dayList;
@@ -48,7 +52,16 @@ public class TaskCreatePanel extends JPanel {
 		titleLabel = new JLabel("Title:");
 		titleField = new JTextField(20);
 		dayList = new JComboBox<>(Day.values());
+		
 		colorList = new JComboBox<>(COLORS);
+		ColorComboBoxRenderer renderer = new ColorComboBoxRenderer(colorList);
+		renderer.setColors(COLORS);
+		renderer.setColorNames(COLORS_NAMES);
+		colorList.setOpaque(true);
+		colorList.setRenderer(renderer);
+		
+		
+		
 		descriptionLabel = new JLabel("Description:");
 		descriptionArea = new JTextArea(3,20);
 		descriptionArea.setBorder(titleField.getBorder());
@@ -90,4 +103,77 @@ public class TaskCreatePanel extends JPanel {
 		gbc.gridwidth = 2;
 		add(addTaskButton, gbc);		
 	}
+	
+	@SuppressWarnings("rawtypes")
+	class ColorComboBoxRenderer extends JPanel implements ListCellRenderer{
+		
+		private static final long serialVersionUID = 1L;
+		private Color[]colors;
+		private String[] colorNames;
+		private JComboBox<Color> comboBox;
+		
+		JPanel textPanel;
+		JLabel text;
+		
+		public ColorComboBoxRenderer(JComboBox<Color> combo) {
+			this.comboBox = combo;
+			textPanel = new JPanel();
+	        textPanel.add(this);
+	        text = new JLabel();
+	        text.setOpaque(true);
+	        text.setFont(combo.getFont());
+	        textPanel.add(text);
+	    }
+		
+		public void setColors(Color[]colors){
+			this.colors = colors;
+		}
+		
+		public void setColorNames(String[]colorNames){
+			this.colorNames = colorNames;
+		}
+		
+		public Color[] getColors(){
+			return colors;
+		}
+		
+		public String[] getColorNames(){
+			return colorNames;
+		}
+		
+		@Override
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+				boolean cellHasFocus) {
+			if (isSelected){
+				list.setSelectionBackground(colors[list.getSelectedIndex()]);
+				comboBox.setBackground(colors[list.getSelectedIndex()]);
+				comboBox.getComponent(0).setBackground(new JButton().getBackground());
+			}
+	        else
+	        {
+	        }
+			
+			if(colors.length != colorNames.length){
+				System.out.println("colors.length doesn't match colorNames.length");
+				return this;
+			}
+			else if(colors == null){
+				System.out.println("Set colors by setColors first.");
+				return this;
+			}
+			else if(colorNames == null){
+				System.out.println("Set colorNames by setColorNames first.");
+				return this;
+			}
+			
+			text.setText(" ");
+			
+			if(index > -1){
+				text.setBackground(colors[index]);
+			}
+			
+			return text;
+		}
+	}
+	
 }
