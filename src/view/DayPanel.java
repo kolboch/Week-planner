@@ -1,12 +1,14 @@
 package view;
 
-import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
 public class DayPanel extends JComponent {
@@ -14,27 +16,24 @@ public class DayPanel extends JComponent {
 	private static final long serialVersionUID = 1L;
 	
 	private JLabel dayNameLabel;
-	private GridBagConstraints gbc;
+	private List<TaskBlock>blocks;
 	
 	public DayPanel(String dayName){
-		dayNameLabel = new JLabel(dayName);
-		setLayout(new GridBagLayout());
+		blocks = new LinkedList<>();
 		
-		gbc = new GridBagConstraints();
-		gbc.weightx = 1;
-		gbc.weighty = 1;
-		gbc.fill = GridBagConstraints.CENTER;
-		gbc.gridx = 0;
-		gbc.gridy = 0;
+		dayNameLabel = new JLabel(dayName, SwingConstants.CENTER);
 		
-		Border b = BorderFactory.createLineBorder(Color.BLACK, 2);
-		setBorder(b);
-		add(dayNameLabel, gbc);
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		Border b = BorderFactory.createEtchedBorder();
+		dayNameLabel.setBorder(b);
+		add(dayNameLabel);
 	}
 	
 	public void addTaskPanel(TaskBlock taskBlock){
-		gbc.gridy++;
-		this.add(taskBlock, gbc);
+		blocks.add(taskBlock);
+		this.add(taskBlock);
 	}
+	
+	//TODO delete operation and replacement of left tasks.
 	
 }

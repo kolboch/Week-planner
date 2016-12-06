@@ -1,8 +1,12 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.JFrame;
+
+import model.Task;
+import viewListeners.TaskCreateListener;
 
 public class MainFrame extends JFrame{
 
@@ -21,5 +25,15 @@ public class MainFrame extends JFrame{
 		setLayout(new BorderLayout());
 		add(weekSchedule, BorderLayout.CENTER);
 		add(taskPanel, BorderLayout.EAST);
+		
+		taskPanel.setTaskCreateListener(new TaskCreateListener(){
+
+			@Override
+			public void addTask(Task task, Color colorOfTask) {
+				weekSchedule.addTaskPanel(task, colorOfTask);
+				weekSchedule.getParent().revalidate();
+			}
+			
+		});
 	}
 }

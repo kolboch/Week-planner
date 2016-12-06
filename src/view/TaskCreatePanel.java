@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 
 import model.Day;
+import model.Task;
 import viewListeners.TaskCreateListener;
 
 public class TaskCreatePanel extends JPanel {
@@ -43,9 +44,10 @@ public class TaskCreatePanel extends JPanel {
 				if(listener != null){
 					String title = titleField.getText();
 					String description = descriptionArea.getText();
-					Day day = (Day)dayList.getSelectedItem(); // not sure if correct right now
-					Color c = (Color)colorList.getSelectedItem(); // same as above commentary
-					listener.addTask(title, description, day, c);
+					Day day = (Day)dayList.getSelectedItem();
+					Color colorOfTask = (Color)colorList.getSelectedItem();
+					Task taskToAdd = new Task(title, description, day);
+					listener.addTask(taskToAdd, colorOfTask);
 				}
 			}
 		});

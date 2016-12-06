@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -9,7 +10,7 @@ import model.Day;
 import model.Task;
 
 public class Schedule extends JPanel {
-	//TODO possible improvement ( task for more than one day)
+
 	private static final long serialVersionUID = 1L;
 	private DayPanel[] daysPanels;
 	
@@ -29,10 +30,6 @@ public class Schedule extends JPanel {
 		}
 	}
 	
-	public void addTask(Task task){
-		
-	}
-	
 	public void initDayPanels(){
 		daysPanels = new DayPanel[7];
 		Day[]days = Day.values();
@@ -41,6 +38,12 @@ public class Schedule extends JPanel {
 			dayNames[i] = days[i].getDayName();
 			daysPanels[i] = new DayPanel(dayNames[i]);
 		}
+	}
+	
+	public void addTaskPanel(Task task, Color color){
+		DayPanel toModify = daysPanels[task.getDay().getDayNumber()];
+		TaskBlock taskBlock = new TaskBlock(task.getTitle(), task.getDescription(), color);
+		toModify.addTaskPanel(taskBlock);
 	}
 	
 }
