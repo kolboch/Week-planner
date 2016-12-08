@@ -16,6 +16,7 @@ public class Schedule extends JPanel {
 	
 	public Schedule(){
 		initDayPanels();
+		
 		setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.anchor = GridBagConstraints.NORTH;
@@ -24,10 +25,12 @@ public class Schedule extends JPanel {
 		gbc.gridy = 0;
 		gbc.weightx = 1;
 		gbc.weighty = 1;
+		
 		for(int i = 0; i < daysPanels.length; i++){
 			add(daysPanels[i], gbc);
 			gbc.gridx++;
 		}
+		
 	}
 	
 	public void initDayPanels(){
