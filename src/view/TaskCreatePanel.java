@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
@@ -35,6 +36,7 @@ public class TaskCreatePanel extends JPanel {
 	private JTextField titleField;
 	private JLabel descriptionLabel;
 	private JTextArea descriptionArea;
+	private JScrollPane descriptionScrollPane;
 	private TaskCreateListener listener;
 	
 	public TaskCreatePanel(){
@@ -62,11 +64,13 @@ public class TaskCreatePanel extends JPanel {
 		colorList.setOpaque(true);
 		colorList.setRenderer(renderer);
 		
-		
-		
 		descriptionLabel = new JLabel("Description:");
-		descriptionArea = new JTextArea(3,20);
-		descriptionArea.setBorder(titleField.getBorder());
+		
+		descriptionArea = new JTextArea(5,10);
+		descriptionArea.setWrapStyleWord(true);
+		descriptionArea.setLineWrap(true);
+		descriptionScrollPane = new JScrollPane(descriptionArea);
+		
 		setComponents();
 	}
 	
@@ -98,7 +102,7 @@ public class TaskCreatePanel extends JPanel {
 		gbc.gridheight = 2;
 		add(descriptionLabel, gbc);
 		gbc.gridx = 1;
-		add(descriptionArea, gbc);
+		add(descriptionScrollPane, gbc);
 		gbc.gridheight = 1;
 		gbc.gridx = 0;
 		gbc.gridy = 5;
