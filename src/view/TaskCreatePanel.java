@@ -122,8 +122,8 @@ public class TaskCreatePanel extends JPanel {
 		add(addTaskButton, gbc);		
 	}
 	
-	@SuppressWarnings("rawtypes")
-	class ColorComboBoxRenderer extends JPanel implements ListCellRenderer{
+	
+	class ColorComboBoxRenderer extends JPanel implements ListCellRenderer<Color>{
 		
 		private static final long serialVersionUID = 1L;
 		private Color[]colors;
@@ -160,7 +160,7 @@ public class TaskCreatePanel extends JPanel {
 		}
 		
 		@Override
-		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+		public Component getListCellRendererComponent(JList<? extends Color> list, Color value, int index, boolean isSelected,
 				boolean cellHasFocus) {
 			if (isSelected){
 				list.setSelectionBackground(colors[list.getSelectedIndex()]);
