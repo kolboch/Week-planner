@@ -2,6 +2,8 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -24,12 +26,15 @@ public class TaskBlock extends JPanel{
 	private JLabel descriptionLabel;
 	private TaskBlockListener listener;
 	private JPopupMenu deleteMenu;
+	private Image image = null;
 	
 	public TaskBlock(String title, String description, Color c){
 		titleLabel = new JLabel("<html>" + title + "</html>");
 		descriptionLabel = new JLabel("<html>" + description + "</html>");		
 		
-		setBackground(c);
+		 // setBackground(c); THIS IS BASIC ALTERNATIVE TO IMAGE AS BACKGROUNDS
+		setBackgroundColorPicture(c); // see above commentary if u wish resign from pictures as bg
+		
 		
 		if(c.getRed() * 0.2126 + c.getGreen() * 0.7152 + c.getBlue() * 0.0722 < 60){
 			titleLabel.setForeground(Color.WHITE);
@@ -70,7 +75,25 @@ public class TaskBlock extends JPanel{
 		
 	}
 	
+	@Override
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		if(image != null){
+			g.drawImage(image, 0, 0, null);
+		}
+	}
+	
 	public void setTaskBlockListener(TaskBlockListener listener){
 		this.listener = listener;
+	}
+	
+	private void setBackgroundColorPicture(Color c){
+		boolean found = false;
+		for(int i = 0; i < TaskCreatePanel.COLORS.length && !found; i++){
+			if(TaskCreatePanel.COLORS[i].equals(c)){
+				image = TaskCreatePanel.images[i];
+				found = true;
+			}
+		}
 	}
 }

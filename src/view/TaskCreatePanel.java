@@ -4,10 +4,13 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -25,8 +28,9 @@ import viewListeners.TaskCreateListener;
 public class TaskCreatePanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
-
-	private final Color[] COLORS = {Color.RED, Color.BLUE, Color.BLACK, Color.YELLOW, Color.GREEN};
+	
+	public static Image[] images;
+	public static final Color[] COLORS = {Color.RED, Color.BLUE, Color.BLACK, Color.YELLOW, Color.GREEN};
 	private final String[] COLORS_NAMES = {"RED", "BLUE", "BLACK", "YELLOW", "GREEN"};
 	
 	private JButton addTaskButton;
@@ -40,6 +44,14 @@ public class TaskCreatePanel extends JPanel {
 	private TaskCreateListener listener;
 	
 	public TaskCreatePanel(){
+		try {
+			setImages();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			System.out.println("Error occured when loading images");
+			System.exit(1);
+		}
+		
 		addTaskButton = new JButton("Add task");
 		addTaskButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -180,6 +192,15 @@ public class TaskCreatePanel extends JPanel {
 			
 			return text;
 		}
+	}
+	
+	private void setImages() throws IOException{
+		images = new Image[COLORS.length];
+		images[0] = ImageIO.read(getClass().getResource("/resources/red.jpg"));
+		images[1] = ImageIO.read(getClass().getResource("/resources/blue.jpg"));
+		images[2] = ImageIO.read(getClass().getResource("/resources/black.jpg"));
+		images[3] = ImageIO.read(getClass().getResource("/resources/yellow.jpg"));
+		images[4] = ImageIO.read(getClass().getResource("/resources/green.jpg"));
 	}
 	
 }
