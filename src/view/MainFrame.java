@@ -47,7 +47,6 @@ public class MainFrame extends JFrame{
 		});
 		
 		menuBar.setMainBarMenuListener(new MainBarMenuListener(){
-
 			@Override
 			public void weekplanToImage() {
 				BufferedImage toSave = AppUtils.takeScreenShot(weekSchedule);
@@ -61,13 +60,6 @@ public class MainFrame extends JFrame{
 					JOptionPane.showConfirmDialog(menuBar.getParent(), e.getMessage());
 				}
 			}
-
-			@Override
-			public void weekplanAsWallpaper() {
-				System.out.println("week as wallpaper");
-				
-			}
-			
 		});
 	}
 }

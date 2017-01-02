@@ -1,16 +1,11 @@
 package view;
 
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
@@ -25,8 +20,6 @@ public class DayPanel extends JComponent {
 	private DayTasksBlock tasksBlock;
 	
 	public DayPanel(String dayName){
-		setBorder(BorderFactory.createLineBorder(Color.PINK));
-		
 		dayNameLabel = new JLabel(dayName, SwingConstants.CENTER);
 		Border b = BorderFactory.createBevelBorder(BevelBorder.RAISED);
 		dayNameLabel.setBorder(b);
